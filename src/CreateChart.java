@@ -79,7 +79,7 @@ public class CreateChart extends JFrame {
         for(LocalDate date : ratings.keySet()){
             rat.add(date.toEpochDay(), ratings.get(date).doubleValue());
         }
-        var dataset = new XYSeriesCollection();
+        XYSeriesCollection dataset = new XYSeriesCollection();
         dataset.addSeries(rat);
         return dataset;
     }
@@ -99,7 +99,7 @@ public class CreateChart extends JFrame {
         XYPlot plot = chart.getXYPlot();
 
 
-        var renderer = new XYLineAndShapeRenderer();
+        XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
         renderer.setSeriesPaint(0, Color.RED);
         renderer.setSeriesStroke(0, new BasicStroke(0.5f));
 

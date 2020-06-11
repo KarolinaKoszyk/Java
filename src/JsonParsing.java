@@ -2,6 +2,7 @@ import org.json.*;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
@@ -21,28 +22,12 @@ public class JsonParsing {
     }
 
     public static Map<String, String> getCurrencyCodesNames() throws IOException {
-        String jsonStringA = getStringFroUrl("https://api.nbp.pl/api/exchangerates/tables/a?format=json");
-        String jsonStringB = getStringFroUrl("https://api.nbp.pl/api/exchangerates/tables/b?format=json");
-        JSONArray A = new JSONArray(jsonStringA);
-        JSONArray B = new JSONArray(jsonStringB);
-        JSONObject obA = A.getJSONObject(0);
-        JSONObject obB = B.getJSONObject(0);
-        JSONArray ratesA = obA.getJSONArray("rates");
-        JSONArray ratesB = obB.getJSONArray("rates");
-
         Map<String, String> currencyNames = new HashMap<>();
-        for(int i = 0; i<ratesA.length(); i++){
-            JSONObject currency = ratesA.getJSONObject(i);
-            currencyNames.put(currency.getString("code"), currency.getString("currency"));
-        }
-        for(int i = 0; i<ratesB.length(); i++){
-            JSONObject currency = ratesB.getJSONObject(i);
-            currencyNames.put(currency.getString("code"), currency.getString("currency"));
-        }
-
+        currencyNames.put("USD", "Dolar amerykański");
+        currencyNames.put("EUR", "Euro");
+        currencyNames.put("CHF", "Frank szwajcarski");
         return currencyNames;
     }
-
     private static Currency createCurrencyOfJSON(String jsonString){
         JSONObject currencyObject = new JSONObject(jsonString);
         String name = currencyObject.getString("currency");
